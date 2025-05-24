@@ -27,12 +27,11 @@
       min-height:100vh;padding:24px;
       position:relative;
     }
-    /* More visible pastel overlay */
     body::before{
       content:"";
       position:fixed;inset:0;
       background:var(--gradient);
-      opacity:.25; /* bumped for clearer effect */
+      opacity:.25;
       filter:blur(60px) saturate(150%);
       z-index:-1;
       pointer-events:none;
@@ -45,7 +44,6 @@
       background:var(--white);
       box-shadow:0 6px 24px rgba(0,0,0,.06);
     }
-    /* Thin gradient accent bar at top */
     .card::before{
       content:"";
       display:block;
@@ -113,7 +111,9 @@
     <!-- Schedule (Placeholder) -->
     <div class="schedule"><p style="font-size:15px;color:var(--text);margin:14px 0 24px"><strong>Schedule (Placeholder)</strong></p></div>
 
-    <iframe class="map" src="https://www.google.com/maps?q=13.721946,100.513245&hl=en&z=15&output=embed" loading="lazy"></iframe>
+    <!-- ▼ UPDATED MAP LINK ▼ -->
+    <iframe class="map" src="https://maps.app.goo.gl/GbXhNo3EAkxx4nbV6" loading="lazy"></iframe>
+
     <div class="venue"><p><strong>Mandarin Oriental, Bangkok</strong></p><p>48 Oriental Avenue, Bangkok 10500, Thailand</p></div>
 
     <a href="https://forms.gle/4WjBJAStZ7rXev2U8" target="_blank" class="btn">RSVP&nbsp;Now</a>
@@ -140,4 +140,3 @@
 </script>
 </body>
 </html>
-
