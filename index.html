@@ -3,19 +3,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tar ♥ Bam | Wedding Invitation</title>
-  <!-- Google Fonts for elegant typography -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tar & Bam | Wedding Invitation</title>
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
   <style>
     :root{
-      /* Soft pastel palette */
       --white:#ffffff;
-      --blue:#d7e9ff;     /* light blue */
-      --pink:#ffe5f0;     /* light pink */
-      --yellow:#fff8d6;   /* light yellow */
-      --text:#333333;
+      --blue:#d7e9ff;
+      --pink:#ffe5f0;
+      --yellow:#fff8d6;
+      --text:#333;
     }
+    *{box-sizing:border-box;}
     body{
       margin:0;
       padding:0;
@@ -27,78 +28,104 @@
       min-height:100vh;
     }
     .card{
-      width:600px;
+      width:680px;
+      max-width:94%;
       background:var(--white);
       border:1px solid #eee;
-      padding:48px 40px;
+      padding:52px 44px 44px;
       box-shadow:0 8px 24px rgba(0,0,0,0.05);
       text-align:center;
-      /* Pastel frame accents */
-      border-top:16px solid var(--blue);
-      border-bottom:16px solid var(--pink);
-      border-left:16px solid var(--yellow);
-      border-right:16px solid var(--yellow);
-      border-radius:24px;
+      border-top:14px solid var(--blue);
+      border-bottom:14px solid var(--pink);
+      border-left:14px solid var(--yellow);
+      border-right:14px solid var(--yellow);
+      border-radius:22px;
     }
-    h1{
-      font-family:'Playfair Display', serif;
-      font-size:48px;
-      margin:0;
-      letter-spacing:2px;
-      color:var(--text);
-    }
-    .amp{ font-size:56px; color:var(--text);} /* & sign */
-    h2{
-      font-family:'Montserrat', sans-serif;
-      font-weight:300;
-      font-size:18px;
-      margin:32px 0 24px;
-      color:var(--text);
-    }
-    .details{ font-size:16px; line-height:1.6; color:var(--text);}    
-    .rsvp{ margin-top:40px; font-size:14px; }
-    .accent{
-      background:linear-gradient(90deg,var(--blue),var(--pink),var(--yellow));
-      height:4px;
-      border-radius:2px;
-      margin:40px auto 0;
-      width:60%;
-    }
-    a{ color:var(--text); text-decoration:underline; }
-    iframe.map{
-      width:100%;
-      height:300px;
-      border:0;
-      border-radius:16px;
-      margin-top:32px;
-    }
+    /* Logo */
+    .logo{font-family:'Playfair Display',serif;font-size:56px;letter-spacing:4px;color:var(--text);margin:0 0 4px;}
+    .subtitle{font-size:18px;font-weight:300;color:var(--text);margin:0 0 22px;}
+
+    /* Elegant Countdown */
+    .countdown{display:flex;justify-content:center;gap:14px;margin:6px auto 28px;flex-wrap:wrap;}
+    .cd-box{background:var(--blue);padding:12px 14px;border-radius:14px;min-width:68px;}
+    .cd-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--text);line-height:1;}
+    .cd-label{font-size:11px;color:var(--text);letter-spacing:.5px;text-transform:uppercase;}
+
+    .invite{font-size:18px;font-weight:400;margin-bottom:26px;color:var(--text);}  
+    .details{font-size:15px;line-height:1.6;color:var(--text);}    
+    iframe.map{width:100%;height:300px;border:0;border-radius:16px;margin:30px 0 18px;}
+    .venue{font-size:15px;line-height:1.5;color:var(--text);margin-bottom:24px;}
+    .rsvp{margin-top:34px;font-size:14px;}
+    a{color:var(--text);text-decoration:underline;}
+    .accent{background:linear-gradient(90deg,var(--blue),var(--pink),var(--yellow));height:4px;border-radius:2px;margin:46px auto 0;width:60%;}
+    .footer-note{font-size:13px;color:var(--text);margin-top:20px;}
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Tar <span class="amp">&amp;</span> Bam</h1>
-    <h2>are getting married</h2>
+    <div class="logo">T&amp;B</div>
+    <div class="subtitle">Tar &amp; Bam</div>
+
+    <!-- Countdown -->
+    <div id="countdown" class="countdown">
+      <div class="cd-box"><div class="cd-num" id="cd-days">--</div><div class="cd-label">Days</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">Hours</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">Minutes</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-secs">--</div><div class="cd-label">Seconds</div></div>
+    </div>
+
+    <div class="invite">You are invited</div>
 
     <div class="details">
       <p>Saturday, <strong>20 December&nbsp;2025</strong></p>
-      <p><strong>Mandarin Oriental, Bangkok</strong></p>
-      <p>48 Oriental Avenue, Bangkok 10500, Thailand</p>
-    </div>
-
-    <div class="details">
       <p>Ceremony&nbsp;|&nbsp;<strong>4:30&nbsp;PM</strong></p>
       <p>Reception to follow</p>
     </div>
 
-    <!-- Embedded Google Map -->
+    <!-- Map -->
     <iframe class="map" src="https://maps.google.com/maps?q=13.723997,100.514244&hl=en&z=15&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+    <div class="venue">
+      <p><strong>Mandarin Oriental, Bangkok</strong></p>
+      <p>48 Oriental Avenue, Bangkok 10500, Thailand</p>
+    </div>
 
     <div class="rsvp">
       Kindly RSVP by <strong>31&nbsp;October&nbsp;2025</strong><br>
-      <a href="https://brapla.com/invitation/form/397ffee7-b496-4715-b208-b62b7747be4a/ueFq?openExternalBrowser=1&invitation_form_type=99" target="_blank">Click here to respond</a>
+      <a href="https://forms.gle/your-google-form-id" target="_blank">RSVP via Google Forms</a>
     </div>
 
     <div class="accent"></div>
+    <div class="footer-note">We look forward to celebrating with you!</div>
   </div>
+
+  <!-- Countdown Script (Bangkok UTC+7) -->
+  <script>
+    (function(){
+      const target=new Date('2025-12-20T16:30:00+07:00').getTime();
+      const dEl=document.getElementById('cd-days');
+      const hEl=document.getElementById('cd-hours');
+      const mEl=document.getElementById('cd-mins');
+      const sEl=document.getElementById('cd-secs');
+
+      function pad(n){return n<10?'0'+n:n;}
+      function update(){
+        const now=Date.now();
+        let diff=target-now;
+        if(diff<=0){dEl.innerText=hEl.innerText=mEl.innerText=sEl.innerText='00';return;}
+        let sec=Math.floor(diff/1000);
+        const days=Math.floor(sec/86400);sec%=86400;
+        const hrs=Math.floor(sec/3600);sec%=3600;
+        const mins=Math.floor(sec/60);sec%=60;
+        dEl.innerText=days;
+        hEl.innerText=pad(hrs);
+        mEl.innerText=pad(mins);
+        sEl.innerText=pad(sec);
+      }
+      update();
+      setInterval(update,1000);
+    })();
+  </script>
 </body>
 </html>
+
