@@ -1,0 +1,104 @@
+<!-- Tar & Bam Wedding Invitation | Minimalistic Design -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tar ♥ Bam | Wedding Invitation</title>
+  <!-- Google Fonts for elegant typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* Soft pastel palette */
+      --white:#ffffff;
+      --blue:#d7e9ff;     /* light blue */
+      --pink:#ffe5f0;     /* light pink */
+      --yellow:#fff8d6;   /* light yellow */
+      --text:#333333;
+    }
+    body{
+      margin:0;
+      padding:0;
+      background:var(--white);
+      font-family:'Montserrat', sans-serif;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+    }
+    .card{
+      width:600px;
+      background:var(--white);
+      border:1px solid #eee;
+      padding:48px 40px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.05);
+      text-align:center;
+      /* Pastel frame accents */
+      border-top:16px solid var(--blue);
+      border-bottom:16px solid var(--pink);
+      border-left:16px solid var(--yellow);
+      border-right:16px solid var(--yellow);
+      border-radius:24px;
+    }
+    h1{
+      font-family:'Playfair Display', serif;
+      font-size:48px;
+      margin:0;
+      letter-spacing:2px;
+      color:var(--text);
+    }
+    .amp{ font-size:56px; color:var(--text);} /* & sign */
+    h2{
+      font-family:'Montserrat', sans-serif;
+      font-weight:300;
+      font-size:18px;
+      margin:32px 0 24px;
+      color:var(--text);
+    }
+    .details{ font-size:16px; line-height:1.6; color:var(--text);}    
+    .rsvp{ margin-top:40px; font-size:14px; }
+    .accent{
+      background:linear-gradient(90deg,var(--blue),var(--pink),var(--yellow));
+      height:4px;
+      border-radius:2px;
+      margin:40px auto 0;
+      width:60%;
+    }
+    a{ color:var(--text); text-decoration:underline; }
+    iframe.map{
+      width:100%;
+      height:300px;
+      border:0;
+      border-radius:16px;
+      margin-top:32px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Tar <span class="amp">&amp;</span> Bam</h1>
+    <h2>are getting married</h2>
+
+    <div class="details">
+      <p>Saturday, <strong>20 December&nbsp;2025</strong></p>
+      <p><strong>Mandarin Oriental, Bangkok</strong></p>
+      <p>48 Oriental Avenue, Bangkok 10500, Thailand</p>
+    </div>
+
+    <div class="details">
+      <p>Ceremony&nbsp;|&nbsp;<strong>4:30&nbsp;PM</strong></p>
+      <p>Reception to follow</p>
+    </div>
+
+    <!-- Embedded Google Map -->
+    <iframe class="map" src="https://maps.google.com/maps?q=13.723997,100.514244&hl=en&z=15&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+    <div class="rsvp">
+      Kindly RSVP by <strong>31&nbsp;October&nbsp;2025</strong><br>
+      <a href="https://brapla.com/invitation/form/397ffee7-b496-4715-b208-b62b7747be4a/ueFq?openExternalBrowser=1&invitation_form_type=99" target="_blank">Click here to respond</a>
+    </div>
+
+    <div class="accent"></div>
+  </div>
+</body>
+</html>
