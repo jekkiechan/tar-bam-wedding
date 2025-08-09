@@ -8,6 +8,8 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+      <!-- Font Awesome for timeline icons -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root{
       --cream: #f9f6f2;
@@ -27,7 +29,24 @@
       padding:24px;
       position:relative;
       color:var(--text);
+      /* soften the overall background with a gentle gradient similar to the printed card */
       background:var(--gradient);
+      overflow:hidden;
+    }
+
+    /* Decorative floral corners behind the card */
+    body::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background-image:url('flowers.png');
+      background-size:cover;
+      background-position:center;
+      opacity:0.35;
+      z-index:-2;
     }
     .card{
       max-width:700px;
@@ -35,9 +54,11 @@
       text-align:center;
       padding:64px 52px;
       border-radius:26px;
-      background:rgba(255,255,255,0.6);
-      backdrop-filter:blur(12px) saturate(150%);
-      -webkit-backdrop-filter:blur(12px) saturate(150%);
+      /* use a semi‑opaque cream backdrop instead of stark white glassmorphism */
+      background:rgba(255,250,245,0.85);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      position:relative;
     }
     /* Logo and graphics */
     .logo-img{
@@ -85,9 +106,9 @@
       letter-spacing:.5px;
     }
     .details{
-      font-size:16px;
-      line-height:1.7;
-      margin-bottom:28px;
+          font-size:16px;
+          line-height:1.7;
+          margin-bottom:28px;
     }
     .details p{
       margin-bottom:6px;
@@ -137,6 +158,53 @@
       margin:50px auto 0;
       width:60%;
     }
+
+        /* Timeline styling for horizontal layout with connecting line */
+        .timeline{
+          list-style:none;
+          padding:0;
+          margin:20px 0 32px;
+          display:flex;
+          justify-content:space-between;
+          position:relative;
+          font-size:16px;
+        }
+        .timeline::before{
+          content:'';
+          position:absolute;
+          top:34px;
+          left:0;
+          right:0;
+          height:2px;
+          background:var(--accent);
+        }
+        .timeline .event{
+          flex:1;
+          text-align:center;
+          position:relative;
+        }
+        .timeline .event i{
+          font-size:26px;
+          color:var(--accent);
+          background:#fffaf5;
+          border-radius:50%;
+          padding:10px;
+          border:2px solid var(--accent);
+          position:relative;
+          z-index:2;
+        }
+        .timeline .event span{
+          display:block;
+          margin-top:10px;
+        }
+
+        /* Cartoon couple illustration */
+        .couple-img{
+          width:360px;
+          max-width:90%;
+          margin:40px auto 24px;
+          display:block;
+        }
     @media(max-width:580px){
       .card{padding:52px 32px;}
       .logo-img{width:120px;}
@@ -150,21 +218,37 @@
 </head>
 <body>
   <div class="card">
-    <!-- Monogram -->
-    <img src="monogram.png" alt="Monogram" class="logo-img">
-    <!-- Names graphic -->
-    <img src="output_names.png" alt="Tar and Bam" class="names-img">
-    <!-- Date graphic -->
-    <img src="date_graphic.png" alt="Wedding Date" class="date-img">
+    <!-- Monogram (transparent background) -->
+    <!-- Scalable vector monogram embedded as an SVG for crisp rendering -->
+    <img src="monogram.svg" alt="Monogram" class="logo-img">
+    <!-- Names and date graphics removed to focus on the monogram -->
     <p class="subtitle">You are invited</p>
     <div id="countdown" class="count-inline"></div>
     <div class="details">
       <p>Saturday, <strong>20 December 2025</strong></p>
-      <p><strong>Rings Ceremony</strong>&nbsp;|&nbsp;7:00 AM</p>
-      <p><strong>Tea Ceremony</strong>&nbsp;|&nbsp;8:45 AM</p>
-      <p><strong>Photo Session</strong>&nbsp;|&nbsp;10:00 AM</p>
-      <p><strong>Reception</strong>&nbsp;|&nbsp;10:30 AM (International Buffet)</p>
-    </div>
+        </div>
+        <!-- Timeline with icons for each ceremony -->
+        <ul class="timeline">
+          <li class="event">
+            <i class="fa-solid fa-ring"></i>
+            <span>Rings Ceremony<br>7:00&nbsp;AM</span>
+          </li>
+          <li class="event">
+            <i class="fa-solid fa-mug-hot"></i>
+            <span>Tea Ceremony<br>8:45&nbsp;AM</span>
+          </li>
+          <li class="event">
+            <i class="fa-solid fa-camera"></i>
+            <span>Photo Session<br>10:00&nbsp;AM</span>
+          </li>
+          <li class="event">
+            <i class="fa-solid fa-utensils"></i>
+            <span>Reception<br>10:30&nbsp;AM&nbsp;(Intl. Buffet)</span>
+          </li>
+        </ul>
+
+        <!-- Cartoon couple illustration below timeline -->
+        <img src="couple.png" alt="Cartoon couple" class="couple-img">
     <!-- Embedded map -->
     <iframe class="map" src="https://www.google.com/maps?q=13.7236158,100.5143168&hl=en&z=15&output=embed" loading="lazy"></iframe>
     <div class="venue">
