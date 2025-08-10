@@ -239,14 +239,14 @@
         /* Couple illustration sizing and radial fade. The mask-image ensures the outer edges softly fade to transparent so no rectangular boundary remains. */
         .couple-img{
           /* Reduce the displayed width further so the illustration appears smaller and airier */
-          width:240px;
-          max-width:85%;
-          margin:40px auto 20px;
+          width:220px;
+          max-width:80%;
+          margin:36px auto 16px;
           display:block;
           /* Apply a stronger radial gradient mask: start the fade sooner and extend it further out.  
              The gradient transitions from fully opaque at ~45% of the radius to fully transparent at 80%, providing a softer and more diffuse edge. */
-          -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 80%);
-          mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 80%);
+          -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
+          mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
         }
     @media(max-width:580px){
       .card{padding:52px 32px;}
@@ -292,7 +292,7 @@
         </ul>
 
         <!-- High‑resolution bride and groom illustration with transparent background and softened edges. Using a soft-edged PNG ensures the artwork blends seamlessly with the neutral backdrop without visible borders. -->
-        <img src="couple_final.png" alt="Elegant bride and groom illustration" class="couple-img">
+    <img src="couple_padded.png" alt="Elegant bride and groom illustration" class="couple-img">
     <!-- Embedded map -->
     <iframe class="map" src="https://www.google.com/maps?q=13.7236158,100.5143168&hl=en&z=15&output=embed" loading="lazy"></iframe>
     <div class="venue">
