@@ -64,8 +64,8 @@
     /* Logo and graphics */
     .logo-img{
       width:160px;
-           /* tighten spacing between the monogram and date */
-           margin:0 auto 4px auto;
+      /* Remove extra bottom margin so the monogram sits closer to the date */
+      margin:0 auto 2px auto;
       display:block;
     }
     .names-img{
@@ -75,15 +75,15 @@
     }
     .date-img{
       width:220px;
-           /* reduce spacing after the date graphic to bring it closer to the subtitle */
-           margin:0 auto 8px auto;
+      /* Remove excessive margin to tighten the distance between the date and the subtitle */
+      margin:0 auto 4px auto;
       display:block;
     }
     .subtitle{
       font-size:20px;
       font-weight:300;
-           /* bring subtitle closer to the date */
-           margin-bottom:20px;
+      /* Slightly reduce bottom spacing so the subtitle is nearer to the date */
+      margin-bottom:16px;
     }
     /* Countdown */
     .count-inline{
@@ -224,9 +224,9 @@
   <div class="card">
     <!-- Monogram (transparent background) -->
     <!-- Monogram image with theme-aligned color -->
-    <img src="monogram_theme.png" alt="Monogram" class="logo-img">
+    <img src="monogram_trim.png" alt="Monogram" class="logo-img">
     <!-- Date logo graphic placed below the monogram; recoloured to match accent -->
-    <img src="date_graphic_theme.png" alt="Wedding date" class="date-img">
+    <img src="date_graphic_trim.png" alt="Wedding date" class="date-img">
     <!-- Invitation subtitle -->
     <p class="subtitle">You are invited</p>
     <div id="countdown" class="count-inline"></div>
