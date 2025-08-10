@@ -236,18 +236,13 @@
           color:var(--text);
         }
 
-        /* Couple illustration sizing and radial fade. The mask-image ensures the outer edges softly fade to transparent so no rectangular boundary remains. */
+        /* Couple illustration sizing.  Use a modest width and remove the radial mask.  The illustration itself has a transparent background so it blends naturally into the card without requiring a CSS mask. */
         .couple-img{
-          /* Reduce the displayed width further so the illustration appears smaller and airier */
-          width:200px;
+          /* Display the illustration at a smaller scale for elegance */
+          width:180px;
           max-width:80%;
           margin:36px auto 16px;
           display:block;
-          /* Apply a stronger radial gradient mask: start the fade sooner and extend it further out.  
-             The gradient transitions from fully opaque at ~45% of the radius to fully transparent at 80%, providing a softer and more diffuse edge. */
-          /* Move the fade closer in and extend it further out to minimise any visible edge. */
-          -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 80%);
-          mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 80%);
         }
     @media(max-width:580px){
       .card{padding:52px 32px;}
@@ -262,8 +257,8 @@
 </head>
 <body>
   <div class="card">
-    <!-- Combined monogram, names and date SVG derived from the full AI file.  The colour is overridden in the SVG itself to use the neutral accent hue. -->
-    <img src="full_page_combined.svg" alt="Monogram, names and date" class="logo-full">
+    <!-- Combined monogram, names and date SVG derived from the full AI file.  The colour is overridden in the SVG itself to use the neutral accent hue.  Alt text intentionally left empty so no text is shown if the image fails to load. -->
+    <img src="full_page_combined.svg" alt="" class="logo-full">
     <!-- Invitation subtitle -->
     <p class="subtitle">You are invited</p>
     <div id="countdown" class="count-inline"></div>
@@ -292,8 +287,8 @@
           </li>
         </ul>
 
-        <!-- High‑resolution bride and groom illustration with transparent background and softened edges. Using a soft-edged PNG ensures the artwork blends seamlessly with the neutral backdrop without visible borders. -->
-    <img src="couple_padded.png" alt="Elegant bride and groom illustration" class="couple-img">
+        <!-- High‑resolution bride and groom illustration with a transparent background.  Using the cleaned transparent illustration avoids any rectangular boundaries; the CSS sizing below keeps it modest in size. -->
+    <img src="couple_illustration_transparent_clean.png" alt="Elegant bride and groom illustration" class="couple-img">
     <!-- Embedded map -->
     <iframe class="map" src="https://www.google.com/maps?q=13.7236158,100.5143168&hl=en&z=15&output=embed" loading="lazy"></iframe>
     <div class="venue">
