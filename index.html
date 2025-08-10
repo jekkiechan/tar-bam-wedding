@@ -64,7 +64,8 @@
     /* Logo and graphics */
     .logo-img{
       width:160px;
-      margin:0 auto 12px auto;
+      /* reduce bottom margin so date sits closer to the monogram */
+      margin:0 auto 8px auto;
       display:block;
     }
     .names-img{
@@ -74,7 +75,8 @@
     }
     .date-img{
       width:220px;
-      margin:0 auto 24px auto;
+      /* slightly tighter spacing after the date graphic */
+      margin:0 auto 16px auto;
       display:block;
     }
     .subtitle{
@@ -220,10 +222,10 @@
 <body>
   <div class="card">
     <!-- Monogram (transparent background) -->
-    <!-- Scalable vector monogram embedded as an SVG for crisp rendering -->
-    <img src="monogram.svg" alt="Monogram" class="logo-img">
-    <!-- Date logo graphic placed below the monogram -->
-    <img src="date_graphic.png" alt="Wedding date" class="date-img">
+    <!-- Monogram image with theme-aligned color -->
+    <img src="monogram_accent.png" alt="Monogram" class="logo-img">
+    <!-- Date logo graphic placed below the monogram; recoloured to match accent -->
+    <img src="date_graphic_accent.png" alt="Wedding date" class="date-img">
     <!-- Invitation subtitle -->
     <p class="subtitle">You are invited</p>
     <div id="countdown" class="count-inline"></div>
@@ -248,8 +250,8 @@
           </li>
         </ul>
 
-        <!-- Cartoon couple illustration below timeline -->
-        <img src="couple.png" alt="Cartoon couple" class="couple-img">
+        <!-- Cartoon couple illustration below timeline (cropped from original card) -->
+        <img src="couple_og_manualcrop.png" alt="Cartoon couple" class="couple-img">
     <!-- Embedded map -->
     <iframe class="map" src="https://www.google.com/maps?q=13.7236158,100.5143168&hl=en&z=15&output=embed" loading="lazy"></iframe>
     <div class="venue">
