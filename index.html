@@ -31,7 +31,8 @@
       color:var(--text);
       /* soften the overall background with a gentle gradient similar to the printed card */
       background:var(--gradient);
-      overflow:hidden;
+      /* allow scrolling if content exceeds viewport */
+      overflow:auto;
     }
 
     /* Decorative floral corners behind the card */
@@ -221,12 +222,12 @@
     <!-- Monogram (transparent background) -->
     <!-- Scalable vector monogram embedded as an SVG for crisp rendering -->
     <img src="monogram.svg" alt="Monogram" class="logo-img">
-    <!-- Names and date graphics removed to focus on the monogram -->
+    <!-- Date logo graphic placed below the monogram -->
+    <img src="date_graphic.png" alt="Wedding date" class="date-img">
+    <!-- Invitation subtitle -->
     <p class="subtitle">You are invited</p>
     <div id="countdown" class="count-inline"></div>
-    <div class="details">
-      <p>Saturday, <strong>20 December 2025</strong></p>
-        </div>
+    <!-- Removed textual date; now displayed via date graphic above -->
         <!-- Timeline with icons for each ceremony -->
         <ul class="timeline">
           <li class="event">
