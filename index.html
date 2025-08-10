@@ -239,14 +239,15 @@
         /* Couple illustration sizing and radial fade. The mask-image ensures the outer edges softly fade to transparent so no rectangular boundary remains. */
         .couple-img{
           /* Reduce the displayed width further so the illustration appears smaller and airier */
-          width:220px;
+          width:200px;
           max-width:80%;
           margin:36px auto 16px;
           display:block;
           /* Apply a stronger radial gradient mask: start the fade sooner and extend it further out.  
              The gradient transitions from fully opaque at ~45% of the radius to fully transparent at 80%, providing a softer and more diffuse edge. */
-          -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
-          mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
+          /* Move the fade closer in and extend it further out to minimise any visible edge. */
+          -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 80%);
+          mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 80%);
         }
     @media(max-width:580px){
       .card{padding:52px 32px;}
