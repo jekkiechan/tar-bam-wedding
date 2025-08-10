@@ -163,43 +163,79 @@
       width:60%;
     }
 
-        /* Timeline styling for horizontal layout with connecting line */
-        .timeline{
-          list-style:none;
-          padding:0;
-          margin:20px 0 32px;
-          display:flex;
-          justify-content:space-between;
+        /* Vertical zig‑zag timeline styling */
+        .timeline-vertical{
           position:relative;
-          font-size:16px;
+          margin:24px auto 36px;
+          padding:0;
+          max-width:600px;
+          list-style:none;
         }
-        .timeline::before{
+        /* central line */
+        .timeline-vertical::before{
           content:'';
           position:absolute;
-          top:34px;
-          left:0;
-          right:0;
-          height:2px;
+          top:0;
+          bottom:0;
+          left:50%;
+          width:2px;
           background:var(--accent);
+          transform:translateX(-1px);
         }
-        .timeline .event{
-          flex:1;
-          text-align:center;
+        .timeline-vertical li{
           position:relative;
+          width:50%;
+          padding:16px 30px;
         }
-        .timeline .event i{
-          font-size:26px;
-          color:var(--accent);
-          background:#fffaf5;
+        /* left side events */
+        .timeline-vertical li.left{
+          left:0;
+          text-align:right;
+        }
+        /* right side events */
+        .timeline-vertical li.right{
+          left:50%;
+        }
+        /* dot indicator */
+        .timeline-vertical li::before{
+          content:'';
+          position:absolute;
+          top:24px;
+          width:14px;
+          height:14px;
           border-radius:50%;
-          padding:10px;
-          border:2px solid var(--accent);
-          position:relative;
-          z-index:2;
+          background:var(--accent);
+          border:4px solid rgba(255,250,245,0.85);
+          z-index:1;
         }
-        .timeline .event span{
+        .timeline-vertical li.left::before{
+          right:-7px;
+        }
+        .timeline-vertical li.right::before{
+          left:-7px;
+        }
+        .timeline-vertical .time{
+          font-family:'Playfair Display',serif;
+          font-size:24px;
+          font-weight:600;
+          margin-bottom:4px;
+          color:var(--text);
+        }
+        .timeline-vertical .desc{
+          font-size:16px;
+          line-height:1.4;
+          color:var(--text);
+        }
+
+        /* Fade the edges of the couple illustration so the rectangular boundary blends with the card */
+        .couple-img{
+          width:360px;
+          max-width:90%;
+          margin:40px auto 24px;
           display:block;
-          margin-top:10px;
+          /* apply radial mask to soften edges and hide boundaries */
+          -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+          mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
         }
 
         /* Cartoon couple illustration */
@@ -231,27 +267,27 @@
     <p class="subtitle">You are invited</p>
     <div id="countdown" class="count-inline"></div>
     <!-- Removed textual date; now displayed via date graphic above -->
-        <!-- Simplified timeline for the evening celebration -->
-        <ul class="timeline">
+        <!-- Elegant vertical zig‑zag timeline using start times only -->
+        <ul class="timeline-vertical">
           <!-- Welcome & photos -->
-          <li class="event">
-            <i class="fa-solid fa-camera-retro"></i>
-            <span>Welcome &amp; Photos<br>17:00</span>
+          <li class="left">
+            <div class="time">17:00</div>
+            <div class="desc">Welcome &amp; Photos</div>
           </li>
           <!-- Grand entrance -->
-          <li class="event">
-            <i class="fa-solid fa-heart"></i>
-            <span>Grand Entrance<br>18:00</span>
+          <li class="right">
+            <div class="time">18:00</div>
+            <div class="desc">Grand Entrance</div>
           </li>
-          <!-- Celebration & Dinner -->
-          <li class="event">
-            <i class="fa-solid fa-champagne-glasses"></i>
-            <span>Celebration &amp; Dinner<br>18:30&nbsp;-&nbsp;21:30</span>
+          <!-- Celebration & dinner -->
+          <li class="left">
+            <div class="time">18:30</div>
+            <div class="desc">Celebration &amp; Dinner</div>
           </li>
           <!-- Thank you & farewell -->
-          <li class="event">
-            <i class="fa-solid fa-handshake"></i>
-            <span>Thank You &amp; Farewell<br>21:30</span>
+          <li class="right">
+            <div class="time">21:30</div>
+            <div class="desc">Thank You &amp; Farewell</div>
           </li>
         </ul>
 
