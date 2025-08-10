@@ -79,6 +79,13 @@
       margin:0 auto 4px auto;
       display:block;
     }
+
+    /* Combined monogram, names and date graphic */
+    .logo-full{
+      width:280px;
+      margin:0 auto 12px auto;
+      display:block;
+    }
     .subtitle{
       font-size:20px;
       font-weight:300;
@@ -233,9 +240,6 @@
           max-width:90%;
           margin:40px auto 24px;
           display:block;
-          /* apply radial mask to soften edges and hide boundaries */
-          -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
-          mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
         }
 
         /* Cartoon couple illustration */
@@ -258,11 +262,8 @@
 </head>
 <body>
   <div class="card">
-    <!-- Monogram (transparent background) -->
-    <!-- Monogram image with theme-aligned color -->
-    <img src="monogram_trim.png" alt="Monogram" class="logo-img">
-    <!-- Date logo graphic placed below the monogram; recoloured to match accent -->
-    <img src="date_graphic_trim.png" alt="Wedding date" class="date-img">
+    <!-- Combined monogram, names and date SVG derived from the full AI file.  The colour is overridden in the SVG itself to use the neutral accent hue. -->
+    <img src="full_page.svg" alt="Monogram, names and date" class="logo-full">
     <!-- Invitation subtitle -->
     <p class="subtitle">You are invited</p>
     <div id="countdown" class="count-inline"></div>
@@ -291,8 +292,8 @@
           </li>
         </ul>
 
-        <!-- High‑resolution bride and groom illustration (elegant vector) -->
-        <img src="couple_illustration.png" alt="Elegant bride and groom illustration" class="couple-img">
+        <!-- High‑resolution bride and groom illustration with transparent background -->
+        <img src="couple_illustration_transparent_clean.png" alt="Elegant bride and groom illustration" class="couple-img">
     <!-- Embedded map -->
     <iframe class="map" src="https://www.google.com/maps?q=13.7236158,100.5143168&hl=en&z=15&output=embed" loading="lazy"></iframe>
     <div class="venue">
