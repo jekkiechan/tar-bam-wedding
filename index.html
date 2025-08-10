@@ -83,8 +83,9 @@
     /* Combined monogram, names and date graphic */
     .logo-full{
       width:280px;
-      /* Bring the combined logo and date closer to the subtitle */
-      margin:0 auto 8px auto;
+      /* Bring the combined logo and date closer to the subtitle. 
+         Reduce bottom margin so the date graphic sits snugly above the subtitle without leaving a large gap. */
+      margin:0 auto 4px auto;
       display:block;
     }
     .subtitle{
@@ -235,20 +236,17 @@
           color:var(--text);
         }
 
-        /* Fade the edges of the couple illustration so the rectangular boundary blends with the card */
+        /* Couple illustration sizing and radial fade. The mask-image ensures the outer edges softly fade to transparent so no rectangular boundary remains. */
         .couple-img{
-          width:360px;
+          /* Slightly reduce the displayed width so the illustration feels lighter and more balanced */
+          width:340px;
           max-width:90%;
           margin:40px auto 24px;
           display:block;
-        }
-
-        /* Cartoon couple illustration */
-        .couple-img{
-          width:360px;
-          max-width:90%;
-          margin:40px auto 24px;
-          display:block;
+          /* Apply a wider radial gradient mask so the beige background softly fades out well before the card’s edge.  
+             The gradient transitions from opaque at 50% of the radius to fully transparent at 85%, eliminating any harsh rectangular boundary. */
+          -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 85%);
+          mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 85%);
         }
     @media(max-width:580px){
       .card{padding:52px 32px;}
@@ -294,7 +292,7 @@
         </ul>
 
         <!-- High‑resolution bride and groom illustration with transparent background and softened edges. Using a soft-edged PNG ensures the artwork blends seamlessly with the neutral backdrop without visible borders. -->
-        <img src="couple_final_soft2.png" alt="Elegant bride and groom illustration" class="couple-img">
+        <img src="couple_final.png" alt="Elegant bride and groom illustration" class="couple-img">
     <!-- Embedded map -->
     <iframe class="map" src="https://www.google.com/maps?q=13.7236158,100.5143168&hl=en&z=15&output=embed" loading="lazy"></iframe>
     <div class="venue">
