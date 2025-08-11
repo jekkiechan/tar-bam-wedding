@@ -17,7 +17,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
   
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -33,14 +33,14 @@
       --light-brown: rgba(138, 106, 82, 0.1);
       --white: #FFFFFF;
       
-      /* Spacing scale */
-      --space-xs: 8px;
-      --space-sm: 16px;
-      --space-md: 24px;
-      --space-lg: 32px;
-      --space-xl: 48px;
-      --space-2xl: 64px;
-      --space-3xl: 96px;
+      /* Spacing scale - more refined */
+      --space-xs: 6px;
+      --space-sm: 12px;
+      --space-md: 20px;
+      --space-lg: 28px;
+      --space-xl: 40px;
+      --space-2xl: 56px;
+      --space-3xl: 72px;
     }
     
     * {
@@ -50,9 +50,10 @@
     }
     
     body {
-      font-family: 'Inter', sans-serif;
-      font-size: 18px;
-      line-height: 1.6;
+      font-family: 'Lato', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      font-weight: 300;
       color: var(--deep-brown);
       background-color: var(--paper-cream);
       min-height: 100vh;
@@ -70,8 +71,8 @@
       bottom: 0;
       background-image: url('flowers.png');
       background-size: cover;
-      background-position: center;
-      opacity: 0.25;
+      background-position: top left;
+      opacity: 0.35;
       pointer-events: none;
       z-index: 0;
     }
@@ -104,7 +105,7 @@
     .card {
       background: var(--white);
       border-radius: 12px;
-      padding: var(--space-2xl) var(--space-xl);
+      padding: var(--space-lg) var(--space-md) var(--space-xl);
       box-shadow: 
         0 1px 3px rgba(107, 78, 59, 0.05),
         0 4px 12px rgba(107, 78, 59, 0.08),
@@ -117,7 +118,7 @@
     .logo-svg {
       width: 320px;
       max-width: 90%;
-      margin: 0 auto var(--space-md);
+      margin: 0 auto var(--space-sm);
       display: block;
       animation: fadeIn 1s ease-out 0.2s both;
     }
@@ -126,7 +127,7 @@
       width: 80px;
       height: 1px;
       background: linear-gradient(to right, transparent, var(--mid-brown), transparent);
-      margin: var(--space-lg) auto;
+      margin: var(--space-sm) auto var(--space-md);
       animation: scaleIn 0.8s ease-out 0.6s both;
     }
     
@@ -134,11 +135,11 @@
     .hero-illustration {
       text-align: center;
       margin: var(--space-xl) 0;
-      animation: fadeIn 1s ease-out 0.8s both;
+      animation: fadeIn 1s ease-out 1.9s both;
     }
     
     .hero-illustration img {
-      width: 220px;
+      width: 180px;
       max-width: 80%;
       height: auto;
       filter: drop-shadow(0 4px 8px rgba(107, 78, 59, 0.1));
@@ -146,14 +147,15 @@
     
     /* Countdown */
     .countdown-section {
-      margin: var(--space-2xl) 0;
+      margin: var(--space-xl) 0;
       text-align: center;
       animation: fadeIn 1s ease-out 1s both;
     }
     
     .countdown-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 400;
       color: var(--mid-brown);
       margin-bottom: var(--space-md);
       letter-spacing: 1px;
@@ -171,9 +173,9 @@
     }
     
     .countdown-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 48px;
-      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 500;
       color: var(--deep-brown);
       line-height: 1;
       display: block;
@@ -189,17 +191,17 @@
     
     /* Timeline */
     .timeline-section {
-      margin: var(--space-3xl) 0;
+      margin: var(--space-2xl) 0;
       position: relative;
     }
     
     .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 32px;
-      font-weight: 400;
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 500;
       text-align: center;
       color: var(--deep-brown);
-      margin-bottom: var(--space-xl);
+      margin-bottom: var(--space-lg);
       letter-spacing: 1px;
     }
     
@@ -275,9 +277,9 @@
     }
     
     .timeline-time {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
-      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 500;
       color: var(--deep-brown);
       margin-bottom: 4px;
     }
@@ -285,12 +287,13 @@
     .timeline-event {
       font-size: 16px;
       color: var(--mid-brown);
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
+      font-weight: 400;
     }
     
     /* Venue Section */
     .venue-section {
-      margin: var(--space-3xl) 0;
+      margin: var(--space-xl) 0;
       text-align: center;
       animation: fadeIn 1s ease-out 2s both;
     }
@@ -309,21 +312,22 @@
     }
     
     .venue-details {
-      margin: var(--space-lg) 0;
+      margin: var(--space-md) 0;
     }
     
     .venue-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
-      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 500;
       color: var(--deep-brown);
       margin-bottom: var(--space-xs);
     }
     
     .venue-location {
-      font-size: 18px;
+      font-size: 16px;
       color: var(--mid-brown);
-      line-height: 1.4;
+      line-height: 1.5;
+      font-weight: 400;
     }
     
     .map-link {
@@ -349,12 +353,12 @@
     
     .btn-primary {
       display: inline-block;
-      padding: 18px 48px;
+      padding: 16px 42px;
       background: var(--mid-brown);
       color: var(--white);
-      font-size: 16px;
-      font-weight: 500;
-      letter-spacing: 1.5px;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
       text-decoration: none;
       border-radius: 30px;
@@ -372,16 +376,17 @@
     /* Footer */
     .footer {
       text-align: center;
-      margin-top: var(--space-3xl);
-      padding-top: var(--space-lg);
+      margin-top: var(--space-2xl);
+      padding-top: var(--space-md);
       border-top: 1px solid var(--light-brown);
     }
     
     .footer-message {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
       color: var(--mid-brown);
       font-style: italic;
+      font-weight: 400;
     }
     
     /* Animations */
@@ -487,11 +492,6 @@
         <div class="divider"></div>
       </header>
       
-      <!-- Hero Illustration -->
-      <div class="hero-illustration">
-        <img src="couple_illustration_transparent_clean.png" alt="Illustration of Tar and Bam" loading="eager">
-      </div>
-      
       <!-- Countdown -->
       <section class="countdown-section">
         <p class="countdown-label">Celebrating in</p>
@@ -503,7 +503,7 @@
         <h2 class="section-title">Order of Events</h2>
         <ul class="timeline">
           <li class="timeline-item left">
-            <i class="timeline-icon fas fa-door-open"></i>
+            <i class="timeline-icon fas fa-camera"></i>
             <div class="timeline-time">17:00</div>
             <div class="timeline-event">Welcome & Photos</div>
           </li>
@@ -513,17 +513,22 @@
             <div class="timeline-event">Grand Entrance</div>
           </li>
           <li class="timeline-item left">
-            <i class="timeline-icon fas fa-utensils"></i>
+            <i class="timeline-icon fas fa-champagne-glasses"></i>
             <div class="timeline-time">18:30</div>
             <div class="timeline-event">Celebration & Dinner</div>
           </li>
           <li class="timeline-item right">
-            <i class="timeline-icon fas fa-music"></i>
+            <i class="timeline-icon fas fa-hand-holding-heart"></i>
             <div class="timeline-time">21:30</div>
-            <div class="timeline-event">Thank You & Farewell</div>
+            <div class="timeline-event">Love & Thanks</div>
           </li>
         </ul>
       </section>
+      
+      <!-- Hero Illustration -->
+      <div class="hero-illustration">
+        <img src="couple_illustration_transparent_clean.png" alt="Illustration of Tar and Bam" loading="eager">
+      </div>
       
       <!-- Venue -->
       <section class="venue-section">
