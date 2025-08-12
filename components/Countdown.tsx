@@ -46,7 +46,7 @@ export default function Countdown() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, delay: 0.4 }}
-      className="my-10 text-center"
+      className="my-3 text-center"
     >
       <p className="font-playfair text-lg font-normal text-mid-brown mb-5 tracking-wide">
         Celebrating in
