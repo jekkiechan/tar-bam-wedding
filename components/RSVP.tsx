@@ -23,7 +23,7 @@ export default function RSVP() {
     
     // Google Apps Script Web App URL
     // You'll need to replace this with your own Web App URL after setting up the Google Sheet
-    const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwQIsnIMSCiGEmAGyr87AktvEG7ZAffb1N50Bq9OPFH8QX3cOXcQ7q9pDnRjgV3htOXTg/exec'
     
     try {
       // If URL is not set, just log to console (for testing)
