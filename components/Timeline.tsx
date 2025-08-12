@@ -17,7 +17,7 @@ const events = [
   },
   {
     time: '21:30',
-    title: 'Thank You & Farewell',
+    title: 'Love & Thanks',
   },
 ]
 
