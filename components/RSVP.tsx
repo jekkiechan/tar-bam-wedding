@@ -20,16 +20,17 @@ export default function RSVP() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Google Apps Script Web App URL
-    // You'll need to replace this with your own Web App URL after setting up the Google Sheet
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwQIsnIMSCiGEmAGyr87AktvEG7ZAffb1N50Bq9OPFH8QX3cOXcQ7q9pDnRjgV3htOXTg/exec'
-    
+
+    const GOOGLE_SCRIPT_URL =
+      process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL ?? ''
+
     try {
       // If URL is not set, just log to console (for testing)
-      if (GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+      if (!GOOGLE_SCRIPT_URL) {
         console.log('RSVP Form Data:', formData)
-        console.warn('⚠️ Google Sheets not configured. See RSVP_SETUP.md for instructions.')
+        console.warn(
+          '⚠️ Google Sheets not configured. See RSVP_SETUP.md for instructions.'
+        )
       } else {
         // Send to Google Sheets
         const response = await fetch(GOOGLE_SCRIPT_URL, {
