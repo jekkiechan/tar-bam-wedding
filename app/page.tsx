@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Hero from '@/components/Hero'
 import Countdown from '@/components/Countdown'
 import Timeline from '@/components/Timeline'
+import PreWeddingGallery from '@/components/PreWeddingGallery'
 import Venue from '@/components/Venue'
 import RSVP from '@/components/RSVP'
 
@@ -64,6 +65,7 @@ export default function Home() {
             />
           </motion.div>
           
+          <PreWeddingGallery />
           <Venue />
           <RSVP />
           
