@@ -25,17 +25,12 @@ export default function ThemeSection() {
       </p>
       <div className="mt-8 flex flex-wrap items-center justify-center gap-8">
         {themeColors.map((color) => (
-          <div key={color.hex} className="flex flex-col items-center gap-3">
-            <div
-              className="h-20 w-20 rounded-full border border-light-brown shadow-sm"
-              style={{ backgroundColor: color.hex, boxShadow: '0 8px 20px rgba(107, 78, 59, 0.12)' }}
-              aria-hidden="true"
-            />
-            <div className="text-sm text-deep-brown">
-              <p className="font-medium">{color.name}</p>
-              <p className="text-xs uppercase tracking-wide text-light-brown">{color.hex}</p>
-            </div>
-          </div>
+          <div
+            key={color.hex}
+            className="h-16 w-16 rounded-full border border-light-brown shadow-sm"
+            style={{ backgroundColor: color.hex, boxShadow: '0 8px 20px rgba(107, 78, 59, 0.12)' }}
+            aria-label={`${color.name} (${color.hex})`}
+          />
         ))}
       </div>
     </motion.section>
