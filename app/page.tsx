@@ -8,6 +8,7 @@ import Timeline from '@/components/Timeline'
 import PreWeddingGallery from '@/components/PreWeddingGallery'
 import Venue from '@/components/Venue'
 import RSVP from '@/components/RSVP'
+import ThemeSection from '@/components/Theme'
 
 export default function Home() {
   return (
@@ -64,7 +65,9 @@ export default function Home() {
               className="mx-auto w-44 max-w-[80%] drop-shadow-lg"
             />
           </motion.div>
-          
+
+          <ThemeSection />
+
           <PreWeddingGallery />
           <Venue />
           <RSVP />
