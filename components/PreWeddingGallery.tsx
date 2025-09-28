@@ -10,6 +10,9 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
+// Tiny transparent placeholder to avoid layout jank on slow networks
+const BLUR_DATA_URL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='
+
 export default function PreWeddingGallery() {
   const photos = preweddingPhotos
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
@@ -85,6 +88,8 @@ export default function PreWeddingGallery() {
             }}
             pagination={{
               clickable: true,
+              dynamicBullets: true,
+              dynamicMainBullets: 3,
             }}
             className="rounded-lg overflow-hidden"
           >
@@ -113,8 +118,12 @@ export default function PreWeddingGallery() {
                           alt={`Pre-wedding photo ${index + 1}`}
                           fill
                           className="object-contain"
-                          sizes="(min-width: 1024px) 420px, (min-width: 640px) 360px, 85vw"
-                          priority={index === 0}
+                          sizes="(min-width: 1024px) 380px, (min-width: 640px) 320px, 90vw"
+                          priority={index < 2}
+                          placeholder="blur"
+                          blurDataURL={BLUR_DATA_URL}
+                          loading="lazy"
+                          decoding="async"
                           onLoad={(event) => {
                             const imgElement = event.currentTarget as HTMLImageElement
                             if (imgElement.naturalHeight === 0) {
