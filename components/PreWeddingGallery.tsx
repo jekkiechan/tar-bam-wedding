@@ -13,6 +13,25 @@ import 'swiper/css/navigation'
 export default function PreWeddingGallery() {
   const photos = preweddingPhotos
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
+  const [imageRatios, setImageRatios] = useState<Record<number, number>>({})
+
+  const getAspectRatio = (index: number, photo: Photo) => {
+    const loadedRatio = imageRatios[index]
+    if (loadedRatio) {
+      return loadedRatio
+    }
+
+    if (photo.aspectRatio) {
+      const [width, height] = photo.aspectRatio
+        .split('/')
+        .map((value) => Number.parseFloat(value))
+      if (width > 0 && height > 0) {
+        return width / height
+      }
+    }
+
+    return photo.orientation === 'landscape' ? 3 / 2 : 2 / 3
+  }
 
   const handlePrevious = () => {
     if (selectedImage !== null) {
@@ -57,30 +76,60 @@ export default function PreWeddingGallery() {
             }}
             className="rounded-lg overflow-hidden"
           >
-            {photos.map((photo, index) => (
-              <SwiperSlide key={photo.filename}>
-                <div 
-                  className="relative cursor-pointer transition-all duration-300 hover:scale-[1.02]"
-                  onClick={() => setSelectedImage(index)}
-                >
-                  <div className="bg-white p-3 md:p-4 rounded-lg shadow-md" style={{
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)'
-                  }}>
-                    <div className="relative h-[380px] md:h-[450px] bg-gradient-to-b from-gray-50 to-gray-100">
-                      <Image
-                        src={`/images/prewedding/${photo.filename}`}
-                        alt={`Pre-wedding photo ${index + 1}`}
-                        fill
-                        className="object-contain"
-                        sizes="100vw"
-                        priority={index === 0}
-                      />
+            {photos.map((photo, index) => {
+              const aspectRatio = getAspectRatio(index, photo)
+
+              return (
+                <SwiperSlide key={photo.filename}>
+                  <div
+                    className="relative cursor-pointer transition-all duration-300 hover:scale-[1.02]"
+                    onClick={() => setSelectedImage(index)}
+                  >
+                    <div
+                      className="bg-white p-3 md:p-4 rounded-lg shadow-md"
+                      style={{
+                        boxShadow:
+                          '0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)',
+                      }}
+                    >
+                      <div
+                        className="relative w-full bg-gradient-to-b from-gray-50 to-gray-100 overflow-hidden rounded"
+                        style={{
+                          aspectRatio,
+                          maxHeight:
+                            photo.orientation === 'landscape' ? '480px' : '620px',
+                        }}
+                      >
+                        <Image
+                          src={`/images/prewedding/${photo.filename}`}
+                          alt={`Pre-wedding photo ${index + 1}`}
+                          fill
+                          className="object-contain"
+                          sizes="(min-width: 768px) 520px, 100vw"
+                          priority={index === 0}
+                          onLoad={(event) => {
+                            const imgElement = event.currentTarget
+                            if (imgElement.naturalHeight === 0) {
+                              return
+                            }
+                            const ratio =
+                              imgElement.naturalWidth / imgElement.naturalHeight
+                            setImageRatios((prev) => {
+                              const existing = prev[index]
+                              if (existing && Math.abs(existing - ratio) < 0.01) {
+                                return prev
+                              }
+                              return { ...prev, [index]: ratio }
+                            })
+                          }}
+                        />
+                      </div>
+                      <div className="mt-3 h-8" />
                     </div>
-                    <div className="mt-3 h-8" />
                   </div>
-                </div>
-              </SwiperSlide>
-            ))}
+                </SwiperSlide>
+              )
+            })}
           </Swiper>
           
           {/* Subtle Navigation Buttons */}
