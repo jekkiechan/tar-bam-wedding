@@ -41,7 +41,7 @@ export default function PreWeddingGallery() {
       }>
 
     let idleId: number | null = null
-    let timeoutId: ReturnType<typeof setTimeout> | null = null
+    let timeoutId: number | null = null
 
     if (typeof win.requestIdleCallback === 'function') {
       idleId = win.requestIdleCallback(startPreloading)
