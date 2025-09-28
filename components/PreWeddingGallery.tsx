@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -11,12 +11,56 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
 // Tiny transparent placeholder to avoid layout jank on slow networks
-const BLUR_DATA_URL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='
+const BLUR_DATA_URL =
+  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='
 
 export default function PreWeddingGallery() {
   const photos = preweddingPhotos
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
   const [imageRatios, setImageRatios] = useState<Record<number, number>>({})
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || photos.length === 0) {
+      return
+    }
+
+    const preloadedImages: HTMLImageElement[] = []
+
+    const startPreloading = () => {
+      photos.forEach((photo) => {
+        const img = new window.Image()
+        img.src = `/images/prewedding/${photo.filename}`
+        preloadedImages.push(img)
+      })
+    }
+
+    const win = window as Window &
+      Partial<{
+        requestIdleCallback: (callback: IdleRequestCallback) => number
+        cancelIdleCallback: (handle: number) => void
+      }>
+
+    let idleId: number | null = null
+    let timeoutId: number | null = null
+
+    if (typeof win.requestIdleCallback === 'function') {
+      idleId = win.requestIdleCallback(startPreloading)
+    } else {
+      timeoutId = window.setTimeout(startPreloading, 400)
+    }
+
+    return () => {
+      if (idleId !== null && typeof win.cancelIdleCallback === 'function') {
+        win.cancelIdleCallback(idleId)
+      }
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId)
+      }
+      preloadedImages.forEach((img) => {
+        img.src = ''
+      })
+    }
+  }, [photos])
 
   const getAspectRatio = (index: number, photo: Photo) => {
     const loadedRatio = imageRatios[index]
@@ -187,6 +231,8 @@ export default function PreWeddingGallery() {
                 className="object-contain"
                 sizes="100vw"
                 priority
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
               />
 
               {/* Navigation buttons */}
