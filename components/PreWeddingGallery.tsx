@@ -30,12 +30,24 @@ export default function PreWeddingGallery() {
       }
     }
 
-    return photo.orientation === 'landscape' ? 3 / 2 : 2 / 3
+    return 1
+  }
+
+  const getFrameHeight = (ratio: number) => {
+    if (ratio >= 1.25) {
+      return 'clamp(220px, 38vw, 320px)'
+    }
+
+    if (ratio >= 0.95) {
+      return 'clamp(240px, 44vw, 360px)'
+    }
+
+    return 'clamp(280px, 52vw, 420px)'
   }
 
   const handlePrevious = () => {
     if (selectedImage !== null) {
-      setSelectedImage((prev) => 
+      setSelectedImage((prev) =>
         prev === 0 ? photos.length - 1 : (prev ?? 0) - 1
       )
     }
@@ -43,7 +55,7 @@ export default function PreWeddingGallery() {
 
   const handleNext = () => {
     if (selectedImage !== null) {
-      setSelectedImage((prev) => 
+      setSelectedImage((prev) =>
         prev === photos.length - 1 ? 0 : (prev ?? 0) + 1
       )
     }
@@ -61,7 +73,7 @@ export default function PreWeddingGallery() {
         </h2>
 
         {/* Polaroid-Style Photo Gallery */}
-        <div className="relative max-w-md mx-auto">
+        <div className="relative mx-auto w-full max-w-sm sm:max-w-md">
           <Swiper
             modules={[Pagination, Navigation]}
             spaceBetween={0}
@@ -71,7 +83,7 @@ export default function PreWeddingGallery() {
               nextEl: '.swiper-next',
               prevEl: '.swiper-prev',
             }}
-            pagination={{ 
+            pagination={{
               clickable: true,
             }}
             className="rounded-lg overflow-hidden"
@@ -80,35 +92,31 @@ export default function PreWeddingGallery() {
               const aspectRatio = getAspectRatio(index, photo)
 
               return (
-                <SwiperSlide key={photo.filename}>
+                <SwiperSlide key={photo.filename} className="pb-10">
                   <div
-                    className="relative cursor-pointer transition-all duration-300 hover:scale-[1.02]"
+                    className="relative cursor-pointer transition-all duration-300 hover:scale-[1.01]"
                     onClick={() => setSelectedImage(index)}
                   >
                     <div
-                      className="bg-white p-3 md:p-4 rounded-lg shadow-md"
+                      className="bg-white p-2 sm:p-3 rounded-xl shadow-md"
                       style={{
                         boxShadow:
                           '0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)',
                       }}
                     >
                       <div
-                        className="relative w-full bg-gradient-to-b from-gray-50 to-gray-100 overflow-hidden rounded"
-                        style={{
-                          aspectRatio,
-                          maxHeight:
-                            photo.orientation === 'landscape' ? '480px' : '620px',
-                        }}
+                        className="relative w-full bg-gradient-to-b from-gray-50 to-gray-100 overflow-hidden rounded-lg"
+                        style={{ height: getFrameHeight(aspectRatio) }}
                       >
                         <Image
                           src={`/images/prewedding/${photo.filename}`}
                           alt={`Pre-wedding photo ${index + 1}`}
                           fill
                           className="object-contain"
-                          sizes="(min-width: 768px) 520px, 100vw"
+                          sizes="(min-width: 1024px) 420px, (min-width: 640px) 360px, 85vw"
                           priority={index === 0}
                           onLoad={(event) => {
-                            const imgElement = event.currentTarget
+                            const imgElement = event.currentTarget as HTMLImageElement
                             if (imgElement.naturalHeight === 0) {
                               return
                             }
@@ -124,14 +132,14 @@ export default function PreWeddingGallery() {
                           }}
                         />
                       </div>
-                      <div className="mt-3 h-8" />
+                      <div className="mt-2 h-6" />
                     </div>
                   </div>
                 </SwiperSlide>
               )
             })}
           </Swiper>
-          
+
           {/* Subtle Navigation Buttons */}
           <button className="swiper-prev absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/60 backdrop-blur-sm rounded-full p-2 hover:bg-white/80 transition-all duration-300">
             <svg className="w-5 h-5 text-mid-brown/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
