@@ -95,6 +95,21 @@ function doGet() {
 2. Click "RSVP Now" and submit a test response
 3. Check your Google Sheet - you should see the response appear!
 
+## Step 6: Display the Wedding Wishes (Optional)
+
+1. Publish the sheet so it can be read by the website (File → Share → Publish to web → Entire document)
+2. Copy the spreadsheet ID from the URL (the long string between `/d/` and `/edit`)
+3. Create a `.env.local` file at the project root (if you don't already have one)
+4. Add these entries:
+   ```bash
+   NEXT_PUBLIC_GOOGLE_SHEETS_ID=your_spreadsheet_id_here
+   # Optional overrides if you renamed the sheet tab or want to limit the range that contains wishes
+   NEXT_PUBLIC_GOOGLE_SHEETS_TAB=Wedding RSVP
+   NEXT_PUBLIC_GOOGLE_SHEETS_RANGE=A2:G
+   ```
+5. Restart the development server so the environment variables are picked up
+6. Visit the site again — the "Wedding Wishes" section will list the latest heartfelt messages from your guests
+
 ## Managing Responses
 
 - All responses will appear in your Google Sheet in real-time

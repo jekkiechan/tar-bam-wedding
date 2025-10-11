@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti'
 
 export default function RSVP() {
+  const MESSAGE_MAX_LENGTH = 300
   const [showForm, setShowForm] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
@@ -45,11 +46,15 @@ export default function RSVP() {
           }),
         })
       }
-      
+
       // Show success state
       setSubmitted(true)
       setShowForm(false)
-      
+
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('refresh-wishes'))
+      }
+
       // Trigger confetti
       confetti({
         particleCount: 100,
@@ -177,8 +182,12 @@ export default function RSVP() {
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   rows={3}
                   className="w-full px-3 py-2 border border-light-brown rounded-lg focus:outline-none focus:border-mid-brown"
+                  maxLength={MESSAGE_MAX_LENGTH}
                   disabled={isSubmitting}
                 />
+                <p className="text-xs text-mid-brown mt-1 text-right">
+                  Characters left: {MESSAGE_MAX_LENGTH - formData.message.length}
+                </p>
               </div>
 
               <div className="flex gap-3 justify-center">
