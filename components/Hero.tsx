@@ -20,7 +20,7 @@ export default function Hero() {
         priority
       />
       <p className="font-playfair text-lg uppercase tracking-[0.35em] text-mid-brown mb-4">
-        #andbam!itstar
+        #andbamitstar
       </p>
       <div className="w-20 h-px bg-gradient-to-r from-transparent via-mid-brown to-transparent mx-auto mb-5" />
     </motion.header>

@@ -168,7 +168,7 @@ export default function PreWeddingGallery() {
             spaceBetween={0}
             slidesPerView={1}
             loop={photos.length > 1}
-            speed={9000}
+            speed={6000}
             autoplay={
               photos.length > 1
                 ? {
