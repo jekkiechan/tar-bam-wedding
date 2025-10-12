@@ -71,8 +71,8 @@ export default function Home() {
 
           <PreWeddingGallery />
           <Venue />
-          <WeddingWishes />
           <RSVP />
+          <WeddingWishes />
           
           {/* Footer */}
           <motion.footer

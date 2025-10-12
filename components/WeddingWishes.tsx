@@ -180,27 +180,38 @@ export default function WeddingWishes() {
       return
     }
 
-    let animationFrame: number
+    let animationFrame: number | null = null
     let lastTimestamp: number | null = null
+    let pendingFraction = 0
 
     const step = (timestamp: number) => {
+      const activeContainer = scrollRef.current
+      if (!activeContainer) {
+        animationFrame = requestAnimationFrame(step)
+        return
+      }
+
       if (isPausedRef.current) {
         lastTimestamp = null
+        pendingFraction = 0
         animationFrame = requestAnimationFrame(step)
         return
       }
 
       if (lastTimestamp !== null) {
         const elapsed = timestamp - lastTimestamp
-        const pixelsPerSecond = 18
-        const distance = (elapsed / 1000) * pixelsPerSecond
+        const pixelsPerSecond = 24
+        const distance = (elapsed / 1000) * pixelsPerSecond + pendingFraction
+        const wholePixels = Math.floor(distance)
+        pendingFraction = distance - wholePixels
 
-        const maxScrollTop = Math.max(container.scrollHeight - container.clientHeight, 0)
+        const maxScrollTop = Math.max(activeContainer.scrollHeight - activeContainer.clientHeight, 0)
         if (maxScrollTop <= 0) {
-          container.scrollTop = 0
-        } else {
-          const nextTop = container.scrollTop + distance
-          container.scrollTop = nextTop >= maxScrollTop ? 0 : nextTop
+          activeContainer.scrollTop = 0
+        } else if (wholePixels > 0) {
+          const wrapAt = maxScrollTop + 1
+          const nextTop = (activeContainer.scrollTop + wholePixels) % wrapAt
+          activeContainer.scrollTop = nextTop
         }
       }
 
@@ -211,7 +222,9 @@ export default function WeddingWishes() {
     animationFrame = requestAnimationFrame(step)
 
     return () => {
-      cancelAnimationFrame(animationFrame)
+      if (animationFrame !== null) {
+        cancelAnimationFrame(animationFrame)
+      }
     }
   }, [wishes])
 
