@@ -27,7 +27,7 @@ const buildFeedUrl = () => {
 const feedUrl = buildFeedUrl()
 
 function parseGvizResponse(text: string) {
-  const match = text.match(/google\.visualization\.Query\.setResponse\((.*)\);?/s)
+  const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/)
   if (!match) {
     throw new Error('Unexpected response format from Google Sheets')
   }
