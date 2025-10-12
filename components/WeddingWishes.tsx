@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 type Wish = {
@@ -58,7 +58,7 @@ function parseGvizResponse(text: string) {
     const aTime = a.timestamp?.getTime() ?? 0
     const bTime = b.timestamp?.getTime() ?? 0
     return bTime - aTime
-  }).slice(0, 25)
+  })
 }
 
 function getInitials(name: string) {
@@ -106,6 +106,8 @@ export default function WeddingWishes() {
   const [wishes, setWishes] = useState<Wish[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false)
+  const scrollRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (!feedUrl) {
@@ -151,6 +153,55 @@ export default function WeddingWishes() {
     }
   }, [feedUrl])
 
+  useEffect(() => {
+    const container = scrollRef.current
+    if (!container) return
+    container.scrollTop = 0
+  }, [wishes])
+
+  useEffect(() => {
+    const container = scrollRef.current
+    if (!container || !wishes.length || isAutoScrollPaused) {
+      if (container && !wishes.length) {
+        container.scrollTop = 0
+      }
+      return
+    }
+
+    const canScroll = container.scrollHeight > container.clientHeight + 1
+    if (!canScroll) {
+      container.scrollTop = 0
+      return
+    }
+
+    const pixelsPerSecond = 12
+    let animationFrame: number
+    let lastTimestamp: number | null = null
+
+    const step = (timestamp: number) => {
+      if (lastTimestamp !== null) {
+        const elapsed = timestamp - lastTimestamp
+        container.scrollTop += (elapsed * pixelsPerSecond) / 1000
+
+        const reachedBottom =
+          container.scrollTop + container.clientHeight >= container.scrollHeight - 1
+
+        if (reachedBottom) {
+          container.scrollTop = 0
+        }
+      }
+
+      lastTimestamp = timestamp
+      animationFrame = requestAnimationFrame(step)
+    }
+
+    animationFrame = requestAnimationFrame(step)
+
+    return () => {
+      cancelAnimationFrame(animationFrame)
+    }
+  }, [wishes, isAutoScrollPaused])
+
   return (
     <section className="my-14 text-center">
       <motion.div
@@ -190,7 +241,18 @@ export default function WeddingWishes() {
             )}
 
             <div className="relative">
-              <div className="max-h-80 overflow-y-auto pr-1">
+              <div
+                ref={scrollRef}
+                className="max-h-80 overflow-y-auto pr-1"
+                tabIndex={0}
+                onPointerEnter={() => setIsAutoScrollPaused(true)}
+                onPointerLeave={() => setIsAutoScrollPaused(false)}
+                onFocus={() => setIsAutoScrollPaused(true)}
+                onBlur={() => setIsAutoScrollPaused(false)}
+                onTouchStart={() => setIsAutoScrollPaused(true)}
+                onTouchEnd={() => setIsAutoScrollPaused(false)}
+                onTouchCancel={() => setIsAutoScrollPaused(false)}
+              >
                 <div className="space-y-4">
                   <AnimatePresence>
                     {wishes.map((wish) => (
