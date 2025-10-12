@@ -108,6 +108,11 @@ export default function WeddingWishes() {
   const [error, setError] = useState<string | null>(null)
   const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false)
   const scrollRef = useRef<HTMLDivElement | null>(null)
+  const isPausedRef = useRef(isAutoScrollPaused)
+
+  useEffect(() => {
+    isPausedRef.current = isAutoScrollPaused
+  }, [isAutoScrollPaused])
 
   useEffect(() => {
     if (!feedUrl) {
@@ -161,33 +166,41 @@ export default function WeddingWishes() {
 
   useEffect(() => {
     const container = scrollRef.current
-    if (!container || !wishes.length || isAutoScrollPaused) {
-      if (container && !wishes.length) {
+    if (!container || !wishes.length) {
+      if (container) {
         container.scrollTop = 0
       }
       return
     }
 
-    const canScroll = container.scrollHeight > container.clientHeight + 1
-    if (!canScroll) {
-      container.scrollTop = 0
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
+    if (prefersReducedMotion) {
       return
     }
 
-    const pixelsPerSecond = 12
     let animationFrame: number
     let lastTimestamp: number | null = null
 
     const step = (timestamp: number) => {
+      if (isPausedRef.current) {
+        lastTimestamp = null
+        animationFrame = requestAnimationFrame(step)
+        return
+      }
+
       if (lastTimestamp !== null) {
         const elapsed = timestamp - lastTimestamp
-        container.scrollTop += (elapsed * pixelsPerSecond) / 1000
+        const pixelsPerSecond = 18
+        const distance = (elapsed / 1000) * pixelsPerSecond
 
-        const reachedBottom =
-          container.scrollTop + container.clientHeight >= container.scrollHeight - 1
-
-        if (reachedBottom) {
+        const maxScrollTop = Math.max(container.scrollHeight - container.clientHeight, 0)
+        if (maxScrollTop <= 0) {
           container.scrollTop = 0
+        } else {
+          const nextTop = container.scrollTop + distance
+          container.scrollTop = nextTop >= maxScrollTop ? 0 : nextTop
         }
       }
 
@@ -200,87 +213,80 @@ export default function WeddingWishes() {
     return () => {
       cancelAnimationFrame(animationFrame)
     }
-  }, [wishes, isAutoScrollPaused])
+  }, [wishes])
 
   return (
-    <section className="my-14 text-center">
+    <section className="my-14">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="max-w-2xl mx-auto"
+        className="mx-auto max-w-2xl"
       >
-        <h2 className="font-playfair text-3xl text-mid-brown">Wedding Wishes</h2>
-        <p className="text-sm text-mid-brown/80 mt-2">
-          Read the warm messages shared by family and friends as we count down to the big day.
-        </p>
-
         {!feedUrl ? (
-          <p className="mt-6 text-sm text-mid-brown/70">
+          <p className="rounded-2xl border border-light-brown/60 bg-paper-cream/60 p-5 text-sm text-mid-brown/80">
             Add your Google Sheet ID to <code className="font-mono text-xs">NEXT_PUBLIC_GOOGLE_SHEETS_ID</code> to display wishes here.
           </p>
         ) : (
-          <div className="mt-8 space-y-4 text-left">
+          <div className="space-y-4">
             {isLoading && (
-              <div className="rounded-2xl border border-light-brown/60 bg-paper-cream/60 p-5 text-mid-brown/80 text-sm">
+              <div className="rounded-2xl border border-light-brown/60 bg-paper-cream/60 p-5 text-sm text-mid-brown/80">
                 Loading the latest wishes...
               </div>
             )}
 
             {error && !isLoading && (
-              <div className="rounded-2xl border border-light-brown/60 bg-paper-cream/60 p-5 text-mid-brown/80 text-sm">
+              <div className="rounded-2xl border border-light-brown/60 bg-paper-cream/60 p-5 text-sm text-mid-brown/80">
                 {error}
               </div>
             )}
 
             {!error && !isLoading && wishes.length === 0 && (
-              <div className="rounded-2xl border border-light-brown/60 bg-paper-cream/60 p-5 text-mid-brown/80 text-sm">
+              <div className="rounded-2xl border border-light-brown/60 bg-paper-cream/60 p-5 text-sm text-mid-brown/80">
                 No wishes yet — be the first to leave a heartfelt note!
               </div>
             )}
 
-            <div className="relative">
-              <div
-                ref={scrollRef}
-                className="max-h-80 overflow-y-auto pr-1"
-                tabIndex={0}
-                onPointerEnter={() => setIsAutoScrollPaused(true)}
-                onPointerLeave={() => setIsAutoScrollPaused(false)}
-                onFocus={() => setIsAutoScrollPaused(true)}
-                onBlur={() => setIsAutoScrollPaused(false)}
-                onTouchStart={() => setIsAutoScrollPaused(true)}
-                onTouchEnd={() => setIsAutoScrollPaused(false)}
-                onTouchCancel={() => setIsAutoScrollPaused(false)}
-              >
-                <div className="space-y-4">
-                  <AnimatePresence>
-                    {wishes.map((wish) => (
-                      <motion.article
-                        key={wish.id}
-                        layout
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.3 }}
-                        className="flex items-start gap-4 rounded-2xl border border-light-brown/60 bg-white/70 p-5 shadow-sm"
-                      >
-                        <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-mid-brown text-lg font-semibold text-white">
-                          {getInitials(wish.name)}
+            <div
+              ref={scrollRef}
+              className="max-h-80 overflow-y-auto pr-1"
+              tabIndex={0}
+              onPointerEnter={() => setIsAutoScrollPaused(true)}
+              onPointerLeave={() => setIsAutoScrollPaused(false)}
+              onFocus={() => setIsAutoScrollPaused(true)}
+              onBlur={() => setIsAutoScrollPaused(false)}
+              onTouchStart={() => setIsAutoScrollPaused(true)}
+              onTouchEnd={() => setIsAutoScrollPaused(false)}
+              onTouchCancel={() => setIsAutoScrollPaused(false)}
+            >
+              <div className="space-y-4">
+                <AnimatePresence>
+                  {wishes.map((wish) => (
+                    <motion.article
+                      key={wish.id}
+                      layout
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex items-start gap-4 rounded-2xl border border-light-brown/60 bg-white/70 p-5 shadow-sm"
+                    >
+                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-mid-brown text-lg font-semibold text-white">
+                        {getInitials(wish.name)}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex flex-wrap items-baseline gap-2">
+                          <h3 className="text-base font-semibold text-mid-brown">{wish.name}</h3>
+                          <span className="text-xs uppercase tracking-wide text-mid-brown/70">
+                            {formatRelativeTime(wish.timestamp)}
+                          </span>
                         </div>
-                        <div className="flex-1">
-                          <div className="flex flex-wrap items-baseline gap-2">
-                            <h3 className="text-base font-semibold text-mid-brown">{wish.name}</h3>
-                            <span className="text-xs uppercase tracking-wide text-mid-brown/70">
-                              {formatRelativeTime(wish.timestamp)}
-                            </span>
-                          </div>
-                          <p className="mt-2 text-sm leading-relaxed text-deep-brown whitespace-pre-line">{wish.message}</p>
-                        </div>
-                      </motion.article>
-                    ))}
-                  </AnimatePresence>
-                </div>
+                        <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-deep-brown">{wish.message}</p>
+                      </div>
+                    </motion.article>
+                  ))}
+                </AnimatePresence>
               </div>
             </div>
           </div>
