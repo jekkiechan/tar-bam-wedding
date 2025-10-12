@@ -189,32 +189,38 @@ export default function WeddingWishes() {
               </div>
             )}
 
-            <AnimatePresence>
-              {wishes.map((wish) => (
-                <motion.article
-                  key={wish.id}
-                  layout
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex items-start gap-4 rounded-2xl border border-light-brown/60 bg-white/70 p-5 shadow-sm"
-                >
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-mid-brown text-lg font-semibold text-white">
-                    {getInitials(wish.name)}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex flex-wrap items-baseline gap-2">
-                      <h3 className="text-base font-semibold text-mid-brown">{wish.name}</h3>
-                      <span className="text-xs uppercase tracking-wide text-mid-brown/70">
-                        {formatRelativeTime(wish.timestamp)}
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm leading-relaxed text-deep-brown whitespace-pre-line">{wish.message}</p>
-                  </div>
-                </motion.article>
-              ))}
-            </AnimatePresence>
+            <div className="relative">
+              <div className="max-h-80 overflow-y-auto pr-1">
+                <div className="space-y-4">
+                  <AnimatePresence>
+                    {wishes.map((wish) => (
+                      <motion.article
+                        key={wish.id}
+                        layout
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3 }}
+                        className="flex items-start gap-4 rounded-2xl border border-light-brown/60 bg-white/70 p-5 shadow-sm"
+                      >
+                        <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-mid-brown text-lg font-semibold text-white">
+                          {getInitials(wish.name)}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex flex-wrap items-baseline gap-2">
+                            <h3 className="text-base font-semibold text-mid-brown">{wish.name}</h3>
+                            <span className="text-xs uppercase tracking-wide text-mid-brown/70">
+                              {formatRelativeTime(wish.timestamp)}
+                            </span>
+                          </div>
+                          <p className="mt-2 text-sm leading-relaxed text-deep-brown whitespace-pre-line">{wish.message}</p>
+                        </div>
+                      </motion.article>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </motion.div>
