@@ -7,6 +7,7 @@ import Countdown from '@/components/Countdown'
 import Timeline from '@/components/Timeline'
 import PreWeddingGallery from '@/components/PreWeddingGallery'
 import Venue from '@/components/Venue'
+import WeddingWishes from '@/components/WeddingWishes'
 import RSVP from '@/components/RSVP'
 import ThemeSection from '@/components/Theme'
 
@@ -71,6 +72,7 @@ export default function Home() {
           <PreWeddingGallery />
           <Venue />
           <RSVP />
+          <WeddingWishes />
           
           {/* Footer */}
           <motion.footer
