@@ -1,14 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination, Navigation } from 'swiper/modules'
+import { Pagination, Navigation, Autoplay } from 'swiper/modules'
 import { preweddingPhotos, type Photo } from '@/lib/photos'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
+import type { Swiper as SwiperType } from 'swiper'
 
 // Tiny transparent placeholder to avoid layout jank on slow networks
 const BLUR_DATA_URL =
@@ -18,6 +19,21 @@ export default function PreWeddingGallery() {
   const photos = preweddingPhotos
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
   const [imageRatios, setImageRatios] = useState<Record<number, number>>({})
+  const swiperRef = useRef<SwiperType | null>(null)
+
+  const pauseAutoplay = () => {
+    const swiper = swiperRef.current
+    if (swiper?.autoplay && typeof swiper.autoplay.stop === 'function') {
+      swiper.autoplay.stop()
+    }
+  }
+
+  const resumeAutoplay = () => {
+    const swiper = swiperRef.current
+    if (swiper?.autoplay && typeof swiper.autoplay.start === 'function') {
+      swiper.autoplay.start()
+    }
+  }
 
   useEffect(() => {
     if (typeof window === 'undefined' || photos.length === 0) {
@@ -108,6 +124,23 @@ export default function PreWeddingGallery() {
     }
   }
 
+  useEffect(() => {
+    const swiper = swiperRef.current
+    if (!swiper?.autoplay) {
+      return
+    }
+
+    if (selectedImage !== null) {
+      if (typeof swiper.autoplay.stop === 'function') {
+        swiper.autoplay.stop()
+      }
+    } else {
+      if (typeof swiper.autoplay.start === 'function') {
+        swiper.autoplay.start()
+      }
+    }
+  }, [selectedImage])
+
   if (photos.length === 0) {
     return null
   }
@@ -120,12 +153,30 @@ export default function PreWeddingGallery() {
         </h2>
 
         {/* Polaroid-Style Photo Gallery */}
-        <div className="relative mx-auto w-full max-w-sm sm:max-w-md">
+        <div
+          className="relative mx-auto w-full max-w-sm sm:max-w-md"
+          onPointerEnter={pauseAutoplay}
+          onPointerLeave={resumeAutoplay}
+          onFocus={pauseAutoplay}
+          onBlur={resumeAutoplay}
+          onTouchStart={pauseAutoplay}
+          onTouchEnd={resumeAutoplay}
+          onTouchCancel={resumeAutoplay}
+        >
           <Swiper
-            modules={[Pagination, Navigation]}
+            modules={[Pagination, Navigation, Autoplay]}
             spaceBetween={0}
             slidesPerView={1}
             loop={photos.length > 1}
+            speed={9000}
+            autoplay={
+              photos.length > 1
+                ? {
+                    delay: 0,
+                    disableOnInteraction: false,
+                  }
+                : false
+            }
             navigation={{
               nextEl: '.swiper-next',
               prevEl: '.swiper-prev',
@@ -136,6 +187,12 @@ export default function PreWeddingGallery() {
               dynamicMainBullets: 3,
             }}
             className="rounded-lg overflow-hidden"
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper
+              if (swiper.autoplay && typeof swiper.autoplay.start === 'function') {
+                swiper.autoplay.start()
+              }
+            }}
           >
             {photos.map((photo, index) => {
               const aspectRatio = getAspectRatio(index, photo)
@@ -166,7 +223,7 @@ export default function PreWeddingGallery() {
                           priority={index < 2}
                           placeholder="blur"
                           blurDataURL={BLUR_DATA_URL}
-                          loading="lazy"
+                          loading={index < 2 ? undefined : 'lazy'}
                           decoding="async"
                           onLoad={(event) => {
                             const imgElement = event.currentTarget as HTMLImageElement

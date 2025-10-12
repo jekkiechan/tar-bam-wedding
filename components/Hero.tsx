@@ -19,6 +19,9 @@ export default function Hero() {
         className="mx-auto mb-3 w-80 max-w-[90%]"
         priority
       />
+      <p className="font-playfair text-lg uppercase tracking-[0.35em] text-mid-brown mb-4">
+        #andbam!itstar
+      </p>
       <div className="w-20 h-px bg-gradient-to-r from-transparent via-mid-brown to-transparent mx-auto mb-5" />
     </motion.header>
   )
