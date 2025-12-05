@@ -4,16 +4,16 @@ import { motion } from 'framer-motion'
 
 const events = [
   {
-    time: '17:00',
-    title: 'Welcome & Photos',
-  },
-  {
-    time: '18:00',
-    title: 'Grand Entrance',
+    time: '17:30',
+    title: 'Guest Arrival & Reception Opens',
   },
   {
     time: '18:30',
-    title: 'Celebration & Dinner',
+    title: 'Bride & Groom Walk-In',
+  },
+  {
+    time: '19:50',
+    title: 'Games & Prizes',
   },
   {
     time: '21:30',
